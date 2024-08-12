@@ -199,4 +199,6 @@ public abstract class TTransport implements Closeable {
   public abstract void updateKnownMessageSize(long size) throws TTransportException;
 
   public abstract void checkReadBytesAvailable(long numBytes) throws TTransportException;
+
+  public void resetRemainingBuffer() throws TTransportException {}
 }

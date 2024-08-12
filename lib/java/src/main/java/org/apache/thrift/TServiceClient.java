@@ -81,9 +81,11 @@ public abstract class TServiceClient {
       TApplicationException x = new TApplicationException();
       x.read(iprot_);
       iprot_.readMessageEnd();
+      iprot_.getTransport().resetRemainingBuffer();
       throw x;
     }
     if (msg.seqid != seqid_) {
+      iprot_.getTransport().resetRemainingBuffer();
       throw new TApplicationException(
           TApplicationException.BAD_SEQUENCE_ID,
           String.format(
@@ -92,5 +94,6 @@ public abstract class TServiceClient {
     }
     result.read(iprot_);
     iprot_.readMessageEnd();
+    iprot_.getTransport().resetRemainingBuffer();
   }
 }

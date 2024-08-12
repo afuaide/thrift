@@ -183,4 +183,16 @@ public class TFramedTransport extends TLayeredTransport {
         | ((buf[2] & 0xff) << 8)
         | ((buf[3] & 0xff));
   }
+
+  @Override
+  public void resetRemainingBuffer() throws TTransportException {
+    if (getBuffer() != null) {
+      int bytesRemainingInBuffer = getBytesRemainingInBuffer();
+      if (bytesRemainingInBuffer < getBuffer().length) {
+        byte[] buff = new byte[bytesRemainingInBuffer];
+        readBuffer_.read(buff, 0, bytesRemainingInBuffer);
+        readBuffer_.reset(buff);
+      }
+    }
+  }
 }
